@@ -1,0 +1,23 @@
+{
+  "name": "miniprogram-gulp",
+  "version": "1.0.0",
+  "description": "miniprogram gulp",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nimengyijunduo/MiniProgram-Gulp.git"
+  },
+  "keywords": [
+    "miniprogram",
+    "gulp"
+  ],
+  "author": "chenghui",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nimengyijunduo/MiniProgram-Gulp/issues"
+  },
+  "homepage": "https://github.com/nimengyijunduo/MiniProgram-Gulp#readme"
+}

@@ -2,6 +2,8 @@ const gulp = require('gulp');
 const del = require('del');
 const gulpif = require('gulp-if');
 const less = require('gulp-less');
+const sass = require('gulp-sass');
+sass.compiler = require('node-sass');
 const rename = require('gulp-rename');
 const imagemin = require("gulp-imagemin");
 
@@ -18,15 +20,17 @@ const wxml = () => {
 gulp.task(wxml);
 
 // 编译less、sass、wxss文件
-const lessFiles = [
+const lessOrSassFiles = [
+  `${srcPath}/*.scss`,
   `${srcPath}/*.less`,
   `${srcPath}/*.wxss`
 ];
 const isLess = (file) => {
-  return file.extname === '.less';
+  return Object.is(file.extname, '.less');
 };
 const wxss = () => {
-  return gulp.src(lessFiles, { since: gulp.lastRun(wxss) })
+  return gulp.src(lessOrSassFiles, { since: gulp.lastRun(wxss) })
+    .pipe(sass().on('error', sass.logError))
     .pipe(gulpif(isLess, less()))
     .pipe(rename({ extname: '.wxss' }))
     .pipe(gulp.dest(buildPath));
@@ -69,7 +73,7 @@ gulp.task('clean', (done) => {
 // 监听文件
 gulp.task('watch', () => {
   gulp.watch(wxmlFiles, wxml);
-  gulp.watch([...lessFiles], wxss);
+  gulp.watch([...lessOrSassFiles], wxss);
   gulp.watch(jsFiles, js);
   gulp.watch(jsonFiles, json);
   gulp.watch(imgFiles, img);

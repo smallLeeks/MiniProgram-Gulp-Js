@@ -5,7 +5,8 @@ const less = require('gulp-less');
 const sass = require('gulp-sass');
 sass.compiler = require('node-sass');
 const rename = require('gulp-rename');
-const imagemin = require("gulp-imagemin");
+const imagemin = require('gulp-imagemin');
+const eslint = require('gulp-eslint');
 
 // 基础路径
 const srcPath = './src/**';
@@ -41,6 +42,8 @@ gulp.task(wxss);
 const jsFiles = [`${srcPath}/*.js`];
 const js = () => {
   return gulp.src(jsFiles, { since: gulp.lastRun(js) })
+    .pipe(eslint())
+    .pipe(eslint.format())
     .pipe(gulp.dest(buildPath));
 };
 gulp.task(js);

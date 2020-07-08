@@ -23,7 +23,9 @@
   },
   "homepage": "https://github.com/nimengyijunduo/MiniProgram-Gulp#readme",
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "del": "^5.1.0",
+    "eslint": "^7.4.0",
     "gulp": "^4.0.2",
     "gulp-eslint": "^6.0.0",
     "gulp-if": "^3.0.0",

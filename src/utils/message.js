@@ -1,5 +1,5 @@
-export default class http {
-  /**
+export default class message {
+   /**
    * [instance  当前实例]
    * @type {this}
    */
@@ -11,13 +11,17 @@ export default class http {
    * @return
    */
   static getInstance() {
-    if (false === instance instanceof this) {
-      this.instance = new this();
+    if (false === this.instance instanceof this) {
+      this.instance = new this;
     }
     return this.instance;
   }
 
   constructor() {
-    
+
   }
+
+  // 登录提示弹窗
+
+  // 限流信息显示
 }

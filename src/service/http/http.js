@@ -9,25 +9,29 @@ export default class http {
 
   // GET无token
   GET(params = {}) {
-    params['methos'] = 'GET';
+    params['header'] = this.getHeader();
+    params['method'] = 'GET';
     return this.request(params);
   }
 
   // POST无token
   POST(params = {}) {
-    params['methos'] = 'POST';
+    params['header'] = this.getHeader();
+    params['method'] = 'POST';
     return this.request(params);
   }
 
   // GET带token
   GETWITHTOKEN(params = {}) {
-    params['methos'] = 'GET';
+    params['header'] = this.getHeaderWidthToken();
+    params['method'] = 'GET';
     return this.request(params);
   }
 
   // POST带token
   POSTWITHTOKEN(params = {}) {
-    params['methos'] = 'POST';
+    params['header'] = this.getHeaderWidthToken();
+    params['method'] = 'POST';
     return this.request(params);
   }
 
@@ -59,12 +63,14 @@ export default class http {
     switch(this.serverType) {
       case '1':
         {
-
+          let token1 = _login.getToken1();
+          if (token1) header.token1 = token1;
         }
         break;
       case '2':
         {
-          
+          let token2 = _login.getToken2();
+          if (token2) header.token2 = token2;
         }
         break;
     }
@@ -74,29 +80,23 @@ export default class http {
   // request
   async request(params = {}) {
     try {
-      await this.checkNetwork();
-      return new Promise((resolve, reject) => {
-        wx.request(this.buildData(params, resolve, reject));
-      });
+      if (await this.checkNetwork()) {
+        return new Promise((resolve, reject) => {
+          let requestOptions = {
+            success: res => {
+              resolve(this.beforeResponse(res));
+            },
+            fail: err => {
+              this.toast(this.NETWORK_ERR_TEXT);
+              reject(err);
+            }
+          };
+          wx.request(Object.assign({}, requestOptions, params));
+        });
+      }
     } catch (err) {
       this.toast(err);
     } 
-  }
-
-  // 数据请求参数
-  buildData(params = {}, resolve = Promise.resolve(), reject = Promise.reject()) {
-    let requestOptions = {
-      header: this.getHeader(),
-      success: res => {
-        resolve(this.beforeResponse(res));
-      },
-      fail: err => {
-        this.toast(this.NETWORK_ERR_TEXT);
-        reject(err);
-      }
-    };
-    Object.assign({}, requestOptions, params);
-    return requestOptions;
   }
 
   // 接口返回数据之前的处理
@@ -127,13 +127,14 @@ export default class http {
           } = res;
           if (Object.is(networkType, 'none') || Object.is(networkType, '2g') || Object.is(networkType, '3g')) {
             this.toast(this.NETWORK_ERR_TEXT);
-            resolve(res);
+            resolve(false);
           } else {
-            resolve(res);
+            resolve(true);
           }
         },
-        fail: err => { 
-          reject(err);
+        fail: err => {
+          this.toast(this.NETWORK_ERR_TEXT);
+          reject(false);
         },
       });
     });

@@ -1,2 +1,4 @@
 <!--index.wxml-->
-<view class="container"></view>
+<view class="container">
+  <view bindtap='test'>测试</view>
+</view>

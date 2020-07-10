@@ -1,10 +1,21 @@
 import regeneratorRuntime from '../../vendor/runtime.js';
+import cache from '../../utils/cache.js';
+const _cache = cache.getInstance();
+
 export default class http {
   constructor(params) {
     this.serverType = params.serverType || ''; // 不同的服务器后台
     this.BAND_RESPONSE_TEXT = "服务器异常，请稍后再试！";
     this.NETWORK_ERR_TEXT = "网络异常，请稍后再试！";
     this.CODE_SUCCESS = 200;
+  }
+
+  // 访问cache数据
+  getCacheData(key, duration) {
+    let cacheData = _cache.getDurationData(key, duration);
+    if (cacheData) {
+      return cacheData.data;
+    }
   }
 
   // GET无token
@@ -42,38 +53,36 @@ export default class http {
       cookie: ''
     };
 
-    switch(this.serverType) {
-      case '1':
-        {
+    // switch(this.serverType) {
+    //   case 1:
+    //     {
 
-        }
-        break;
-      case '2':
-        {
+    //     }
+    //     break;
+    //   case 2:
+    //     {
 
-        }
-        break;
-    }
+    //     }
+    //     break;
+    // }
     return header;
   }
 
   // 获取带token的header信息
   getHeaderWidthToken() {
     let header = this.getHeader();
-    switch(this.serverType) {
-      case '1':
-        {
-          let token1 = _login.getToken1();
-          if (token1) header.token1 = token1;
-        }
-        break;
-      case '2':
-        {
-          let token2 = _login.getToken2();
-          if (token2) header.token2 = token2;
-        }
-        break;
-    }
+    // switch(this.serverType) {
+    //   case 1:
+    //     {
+    //       // if (token1) header.token1 = token1;
+    //     }
+    //     break;
+    //   case 2:
+    //     {
+    //       // if (token2) header.token2 = token2;
+    //     }
+    //     break;
+    // }
     return header;
   }
 

@@ -1,5 +1,7 @@
 //index.js
-const app = getApp();
+import regeneratorRuntime from '../../vendor/runtime.js';
+import request from '../../service/http/request.js';
+const _request = request.getInstance();
 
 Page({
   data: {
@@ -7,5 +9,9 @@ Page({
   },
   onLoad: function () {
 
+  },
+  async test() {
+    const data = await _request.getJson();
+    console.log(data);
   }
 });

@@ -115,6 +115,7 @@ export default class cache {
    * 获取设定区间内的数据
    * @param {Sting} key 
    * @param {Object} duration 
+   * @return
    */
   getDurationData(key, duration = -1) {
     let data = this.get(key);

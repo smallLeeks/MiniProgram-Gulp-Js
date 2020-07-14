@@ -14,7 +14,7 @@ module.exports = {
     "arrow-parens": 0, // 要求箭头函数的参数使用圆括号
     "generator-star-spacing": 0,
     "template-curly-spacing": 0, // 要求或禁止模板字符串中的嵌入表达式周围空格的使用
-    indent: 0, // 强制使用一致的缩进
+    indent: ['error', 2], // 强制使用一致的缩进
     semi: [1, "always"], // 使用分号代替 ASI
     "semi-spacing": 1, // 强制分号之前和之后使用一致的空格
     "semi-style": 1, // 强制分号的位置

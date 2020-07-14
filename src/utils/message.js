@@ -1,5 +1,5 @@
 export default class message {
-   /**
+  /**
    * [instance  当前实例]
    * @type {this}
    */

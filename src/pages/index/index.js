@@ -1,17 +1,21 @@
 //index.js
 import regeneratorRuntime from '../../vendor/runtime.js';
 import request from '../../service/http/request.js';
+import preload from '../../utils/preload.js';
 const _request = request.getInstance();
 
-Page({
-  data: {
-
-  },
-  onLoad: function () {
-
-  },
-  async test() {
-    const data = await _request.getJson();
-    console.log(data);
+class index extends preload {
+  constructor(...args) {
+    super(...args);
   }
-});
+
+  test = async function () {
+    this.$route({
+      path: '/pages/test/test',
+      query: await _request.getJson(),
+      clazzName: 'test'
+    });
+  }
+}
+
+Page(new index());

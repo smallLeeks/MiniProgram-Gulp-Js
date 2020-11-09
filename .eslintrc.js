@@ -27,7 +27,13 @@ module.exports = {
     "space-unary-ops": 0, // 一元运算符后面跟一个空格
     "operator-linebreak": 0, // 强制操作符使用一致的换行符风格
     "keyword-spacing": 0, // 强制在关键字前后使用一致的空格
-    "object-curly-spacing": 0 // 强制在花括号中使用一致的空格
+    "object-curly-spacing": 0, // 强制在花括号中使用一致的空格
+    "prefer-const": [
+      1,
+      {
+        ignoreReadBeforeAssign: false
+      }
+    ],
   },
   // 下列全局变量不能被定义且重新赋值
   globals: {

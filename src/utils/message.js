@@ -1,3 +1,4 @@
+// 全局弹窗和提示信息
 export default class message {
   /**
    * [instance  当前实例]
@@ -22,6 +23,4 @@ export default class message {
   }
 
   // 登录提示弹窗
-
-  // 限流信息显示
 }

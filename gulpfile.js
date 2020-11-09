@@ -10,7 +10,7 @@ const eslint = require('gulp-eslint');
 
 // 基础路径
 const srcPath = './src/**';
-const buildPath = './build/';
+const buildPath = './dist/';
 
 // 编译wxml文件
 const wxmlFiles = [`${srcPath}/*.wxml`];
@@ -39,7 +39,7 @@ const wxss = () => {
 gulp.task(wxss);
 
 // 编译js文件
-const jsFiles = [`${srcPath}/*.js`];
+const jsFiles = [`${srcPath}/*.js`, `!./src/env/*.js`];
 const js = () => {
   return gulp.src(jsFiles, { since: gulp.lastRun(js) })
     .pipe(eslint())
@@ -67,9 +67,22 @@ const img = () => {
 };
 gulp.task(img);
 
+// 接口地址配置
+const config = env => {
+  return () => {
+    return gulp.src(`./src/env/${env}.js`, { since: gulp.lastRun(config) })
+      .pipe(eslint())
+      .pipe(eslint.format())
+      .pipe(rename('env.js'))
+      .pipe(gulp.dest(buildPath));
+  };
+};
+gulp.task('development', config('development'));
+gulp.task('production', config('production'));
+
 // 清除build目录下的所有文件
 gulp.task('clean', (done) => {
-  del.sync(['build/**/*']);
+  del.sync(['dist/**/*']);
   done();
 });
 
@@ -82,20 +95,11 @@ gulp.task('watch', () => {
   gulp.watch(imgFiles, img);
 });
 
-// develop环境
+// development环境
 gulp.task('dev',
   gulp.series(
     'clean',
-    gulp.parallel('wxml', 'wxss', 'js', 'json', 'img'),
-    'watch'
-  )
-)
-
-// test环境
-gulp.task('test', 
-  gulp.series(
-    'clean',
-    gulp.parallel('wxml', 'wxss', 'js', 'json', 'img'),
+    gulp.parallel('wxml', 'wxss', 'js', 'json', 'img', 'development'),
     'watch'
   )
 )
@@ -104,7 +108,7 @@ gulp.task('test',
 gulp.task('build',
   gulp.series(
     'clean',
-    gulp.parallel('wxml', 'wxss', 'js', 'json', 'img'),
+    gulp.parallel('wxml', 'wxss', 'js', 'json', 'img', 'production'),
     'watch'
   )
 )

@@ -1,4 +1,5 @@
-<!--index.wxml-->
+<!-- index.wxml -->
 <view class="container">
-  <view bindtap='test'>测试</view>
+  <view bindtap='test'>{{ msg }}</view>
+  <children />
 </view>

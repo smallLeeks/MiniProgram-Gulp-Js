@@ -31,7 +31,7 @@ export default class cache {
    */
   setCache(key, value, duration = -1) {
     if (key) {
-      let data = {
+      const data = {
         requestTime: parseInt(new Date().getTime() / 1000),
         data: value,
         duration
@@ -48,7 +48,7 @@ export default class cache {
    */
   setStorage(key, value, duration = -1) {
     if (key) {
-      let data = {
+      const data = {
         requestTime: parseInt(new Date().getTime() / 1000),
         data: value,
         duration
@@ -67,8 +67,8 @@ export default class cache {
    */
   get(key) {
     if (this.map.has(key)) {
-      let num = this.mapKey.get(key);
-      let value = this.map.get(key);
+      const num = this.mapKey.get(key);
+      const value = this.map.get(key);
       this.map.delete(key);
       this.mapKey.set(key, num + 1);
       this.map.set(key, value);
@@ -85,17 +85,17 @@ export default class cache {
    */
   sort(key, data) {
     if (Object.is(this.capacity, 0)) return '';
-    let min = Math.min(...this.mapKey.values());
+    const min = Math.min(...this.mapKey.values());
     if (this.map.has(key)) {
       this.map.set(key, data);
-      let num = this.mapKey.get(key);
+      const num = this.mapKey.get(key);
       this.mapKey.set(key, num + 1);
     } else {
       this.map.set(key, data);
       this.mapKey.set(key, 1);
     }
     if (this.map.size > this.capacity) {
-      let keys = this.map.keys();
+      const keys = this.map.keys();
       let deleteKey = keys.next().value;
       while (!Object.is(this.mapKey.get(deleteKey), min)) {
         deleteKey = keys.next().value;
@@ -104,7 +104,7 @@ export default class cache {
       this.mapKey.delete(deleteKey);
     }
   }
-  
+
   // 清除缓存数据
   clear() {
     this.map = new Map();
@@ -118,7 +118,7 @@ export default class cache {
    * @return
    */
   getDurationData(key, duration = -1) {
-    let data = this.get(key);
+    const data = this.get(key);
     if (data && (duration < 0 || (data.requestTime && parseInt(new Date().getTime() / 1000) - data.requestTime <= duration))) return data;
     return '';
   }

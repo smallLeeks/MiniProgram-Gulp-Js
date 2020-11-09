@@ -12,7 +12,7 @@ export default class http {
 
   // 访问cache数据
   getCacheData(key, duration) {
-    let cacheData = _cache.getDurationData(key, duration);
+    const cacheData = _cache.getDurationData(key, duration);
     if (cacheData) {
       return cacheData.data;
     }
@@ -48,9 +48,8 @@ export default class http {
 
   // 获取header信息
   getHeader() {
-    let header = {
-      'Contnet-Type': 'application/json',
-      cookie: ''
+    const header = {
+      'Contnet-Type': 'application/json'
     };
 
     // switch(this.serverType) {
@@ -70,7 +69,7 @@ export default class http {
 
   // 获取带token的header信息
   getHeaderWidthToken() {
-    let header = this.getHeader();
+    const header = this.getHeader();
     // switch(this.serverType) {
     //   case 1:
     //     {
@@ -91,7 +90,7 @@ export default class http {
     try {
       if (await this.checkNetwork()) {
         return new Promise((resolve, reject) => {
-          let requestOptions = {
+          const requestOptions = {
             success: res => {
               resolve(this.beforeResponse(res));
             },
@@ -105,19 +104,17 @@ export default class http {
       }
     } catch (err) {
       this.toast(err);
-    } 
+    }
   }
 
   // 接口返回数据之前的处理
   beforeResponse(res) {
-    let {
-      data
-    } = res;
+    const { data } = res;
     if (!data) {
       this.toast(this.BAND_RESPONSE_TEXT);
       return Promise.reject(res);
     }
-    let map = new Map([
+    const map = new Map([
       [401, () => { this.toast("无访问权限"); return Promise.reject(data); }],
       [404, () => { this.toast(this.BAND_RESPONSE_TEXT); return Promise.reject(data); }]
     ]);
@@ -131,9 +128,7 @@ export default class http {
     return new Promise((resolve, reject) => {
       wx.getNetworkType({
         success: res => {
-          let { 
-            networkType
-          } = res;
+          const { networkType } = res;
           if (Object.is(networkType, 'none') || Object.is(networkType, '2g') || Object.is(networkType, '3g')) {
             this.toast(this.NETWORK_ERR_TEXT);
             resolve(false);

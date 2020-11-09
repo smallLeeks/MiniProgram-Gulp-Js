@@ -6,12 +6,11 @@
 $ npm istall
 ```
 
-##### 编译代码，微信开发者工具中打开 build 文件
+##### 编译代码，微信开发者工具中打开 dist 文件
 
 ```
 $ npm run dev         [开发环境]
-$ npm run test        [测试环境]
-$ npm run production  [正式环境]
+$ npm run build       [正式环境]
 ```
 
 ##### 正式环境编译代码上传

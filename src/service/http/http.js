@@ -3,8 +3,8 @@ import cache from '../../utils/cache.js';
 const _cache = cache.getInstance();
 
 export default class http {
-  constructor(params) {
-    this.serverType = params.serverType || ''; // 不同的服务器后台
+  constructor(serverType) {
+    this.serverType = serverType || ''; // 不同的服务器后台
     this.BAND_RESPONSE_TEXT = "服务器异常，请稍后再试！";
     this.NETWORK_ERR_TEXT = "网络异常，请稍后再试！";
     this.CODE_SUCCESS = 200;

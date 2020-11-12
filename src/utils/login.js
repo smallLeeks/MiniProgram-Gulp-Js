@@ -69,48 +69,40 @@ export default class login {
   }
 
   // 微信快捷登录
-  wxLogin() {
-    return new Promise((resolve, reject) => {
-      wx.login({
-        success: res => resolve(res),
-        fail: err => reject(err)
-      });
-    });
+  async wxLogin() {
+    try {
+      return await wx.login();
+    } catch (error) {
+      this.showToast(error);
+    }
   }
 
   // 检查wx-code是否过期
-  checkCode() {
-    return new Promise((resolve, reject) => {
-      wx.checkSession({
-        success: res => resolve(Object.is(res.errMsg, 'checkSession:ok')),
-        fail: err => resolve(false)
-      });
-    });
+  async checkCode() {
+    try {
+      const { errMsg } = await wx.checkSession();
+      return Object.is(errMsg, 'checkSession:ok');
+    } catch (error) {
+      return false;
+    }
   }
 
   // 获取token
   async getToken(params) {
     try {
-      const { errMsg, code: wxCode } = await this.wxLogin();
-      const {
-        detail: {
-          encryptedData,
-          iv
-        }
-      } = params;
+      const { code: wxCode } = await this.wxLogin();
+      const { detail: { encryptedData, iv } } = params;
       wx.showLoading({ title: "登录中" });
-      if (Object.is(errMsg, 'login:ok')) {
-        const loginParams = Object.assign({}, { code: wxCode }, { encryptedData, iv });
-        const { code, message, data } = await apiRequset.login(loginParams);
-        if (Object.is(code, 200)) {
-          this.userInfo = data;
-          this.saveTokenInfo();
-        } else {
-          this.showToast(message);
-        }
-        wx.hideLoading();
-        return true;
+      const loginParams = Object.assign({}, { code: wxCode }, { encryptedData, iv });
+      const { code, message, data } = await apiRequset.login(loginParams);
+      if (Object.is(code, 200)) {
+        this.userInfo = data;
+        this.saveTokenInfo();
+      } else {
+        this.showToast(message);
       }
+      wx.hideLoading();
+      return true;
     } catch (err) {
       return false;
     }

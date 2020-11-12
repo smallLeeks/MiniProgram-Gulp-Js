@@ -62,10 +62,8 @@ class location {
     wx.getLocation({
       type: 'gcj02',
       altitude: false,
-      success: res => {
-        cb && cb(res);
-      },
-      fail: () => { this.toast("获取定位失败"); }
+      success: res => cb && cb(res),
+      fail: () => this.toast("获取定位失败")
     });
   }
 

@@ -3,8 +3,8 @@ import cache from '../../utils/cache.js';
 const _cache = cache.getInstance();
 
 export default class http {
-  constructor(serverType) {
-    this.serverType = serverType || ''; // 不同的服务器后台
+  constructor(serverType = '') {
+    this.serverType = serverType; // 不同的服务器后台
     this.BAND_RESPONSE_TEXT = "服务器异常，请稍后再试！";
     this.NETWORK_ERR_TEXT = "网络异常，请稍后再试！";
     this.CODE_SUCCESS = 200;
@@ -51,37 +51,12 @@ export default class http {
     const header = {
       'Contnet-Type': 'application/json'
     };
-
-    // switch(this.serverType) {
-    //   case 1:
-    //     {
-
-    //     }
-    //     break;
-    //   case 2:
-    //     {
-
-    //     }
-    //     break;
-    // }
     return header;
   }
 
   // 获取带token的header信息
   getHeaderWidthToken() {
     const header = this.getHeader();
-    // switch(this.serverType) {
-    //   case 1:
-    //     {
-    //       // if (token1) header.token1 = token1;
-    //     }
-    //     break;
-    //   case 2:
-    //     {
-    //       // if (token2) header.token2 = token2;
-    //     }
-    //     break;
-    // }
     return header;
   }
 
@@ -124,24 +99,18 @@ export default class http {
 
 
   // 请求之前检查网络状态
-  checkNetwork() {
-    return new Promise((resolve, reject) => {
-      wx.getNetworkType({
-        success: res => {
-          const { networkType } = res;
-          if (Object.is(networkType, 'none') || Object.is(networkType, '2g') || Object.is(networkType, '3g')) {
-            this.toast(this.NETWORK_ERR_TEXT);
-            resolve(false);
-          } else {
-            resolve(true);
-          }
-        },
-        fail: err => {
-          this.toast(this.NETWORK_ERR_TEXT);
-          reject(false);
-        },
-      });
-    });
+  async checkNetwork() {
+    try {
+      const { networkType } = await wx.getNetworkType();
+      if (Object.is(networkType, 'none') || Object.is(networkType, '2g') || Object.is(networkType, '3g')) {
+        this.toast(this.NETWORK_ERR_TEXT);
+        return false;
+      }
+      return true;
+    } catch (error) {
+      this.toast(this.NETWORK_ERR_TEXT);
+      return false;
+    }
   }
 
   // toast提示

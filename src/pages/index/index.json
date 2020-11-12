@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "children": "/components/template/index"
-  }
+    "navBar": "/components/navBar/navBar"
+  },
+  "navigationStyle": "custom"
 }

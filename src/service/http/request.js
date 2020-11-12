@@ -24,7 +24,7 @@ export default class request {
   }
 
   constructor() {
-    this.http = new http({ serverType: 1 });
+    this.http = new http();
   }
 
   // eg：需要缓存数据
@@ -41,6 +41,34 @@ export default class request {
       return data;
     } catch (err) {
       Promise.reject(err);
+    }
+  }
+
+  // 微信授权手机号登录
+  async login(data) {
+    try {
+      const params = {
+        url: `${SERVICE.BASE_URL}/api/user/login`,
+        data
+      };
+      const response = await this.http.POST(params);
+      return response;
+    } catch (error) {
+      Promise.reject(error);
+    }
+  }
+
+  // 微信定位
+  async location(data) {
+    try {
+      const params = {
+        url: `${SERVICE.BASE_URL}/api/home/index`,
+        data
+      };
+      const response = await this.http.POST(params);
+      return response;
+    } catch (error) {
+      Promise.reject(error);
     }
   }
 }

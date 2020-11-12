@@ -1,18 +1,18 @@
 import regeneratorRuntime from '../../vendor/runtime.js';
 import request from '../../service/http/request.js';
 import login from '../../utils/login.js';
-import location from '../../utils/location.js';
 const apiRequset = request.getInstance();
 const _login = login.getInstance();
 
 Page({
   data: {
-    msg: '获取定位'
+    msg: 'hellow world'
   },
-  onLoad() {
-    location.getMarketInfo();
-  },
-  test() {
-    location.getMarketInfo();
+  async bindLogin(params) {
+    if (await _login.getToken(params)) {
+      this.setData({
+        msg: '登录成功'
+      });
+    }
   }
 });

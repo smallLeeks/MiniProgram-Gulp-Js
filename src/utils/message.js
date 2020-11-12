@@ -1,4 +1,7 @@
 // 全局弹窗和提示信息
+import login from './message.js';
+const _login = login.getInstance();
+
 export default class message {
   /**
    * [instance  当前实例]
@@ -19,8 +22,28 @@ export default class message {
   }
 
   constructor() {
-
+    this.showingLoginPrompt = false; // 是否正在显示登录提醒
   }
 
   // 登录提示弹窗
+  loginTips() {
+    if (this.showingLoginPrompt) return;
+    const pages = getCurrentPages();
+    const route = pages[pages.length - 1].route; // 当前文件路径
+    if (route && route.indexOf('/mine') != -1) return;
+    this.showingLoginPrompt = true;
+    wx.showModal({
+      title: '提示',
+      content: '登录已失效， 是否重新登录？',
+      success: (res) => {
+        if (res.confirm) {
+          _login.loginIfNeed();
+        }
+        this.showingLoginPrompt = false;
+      },
+      fail: (res) => {
+        this.showingLoginPrompt = false;
+      }
+    });
+  }
 }

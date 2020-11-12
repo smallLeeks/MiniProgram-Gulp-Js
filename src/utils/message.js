@@ -1,5 +1,5 @@
 // 全局弹窗和提示信息
-import login from './message.js';
+import login from '../utils/login.js';
 const _login = login.getInstance();
 
 export default class message {

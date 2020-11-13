@@ -30,43 +30,49 @@ export default class request {
   // eg：需要缓存数据
   async getJson() {
     try {
-      const duration = 60 * 60;
-      const cacheData = this.http.getCacheData('test', duration);
+      const cacheData = this.http.getCacheData('test', 60 * 60);
       if (cacheData) return cacheData;
-      const params = {
+      const data = await this.http.GET({
         url: `${SERVICE.BASE_URL}getJoke?page=1&count=2&type=video`
-      };
-      const data = await this.http.GET(params);
-      _cache.setCache('test', data, duration);
+      });
+      _cache.setCache('test', data, 60 * 60);
       return data;
-    } catch (err) {
-      Promise.reject(err);
+    } catch (error) {
+      Promise.reject(error);
     }
   }
 
   // 微信授权手机号登录
-  async login(data) {
+  async login(data = {}) {
     try {
-      const params = {
+      return await this.http.POST({
         url: `${SERVICE.BASE_URL}/api/user/login`,
         data
-      };
-      const response = await this.http.POST(params);
-      return response;
+      });
+    } catch (error) {
+      Promise.reject(error);
+    }
+  }
+
+  // 获取用户信息
+  async getUserInfo(data = {}) {
+    try {
+      return await this.http.POST({
+        url: `${SERVICE.BASE_URL}/api/user/get_userinfo`,
+        data
+      });
     } catch (error) {
       Promise.reject(error);
     }
   }
 
   // 微信定位
-  async location(data) {
+  async location(data = {}) {
     try {
-      const params = {
+      return await this.http.POST({
         url: `${SERVICE.BASE_URL}/api/home/index`,
         data
-      };
-      const response = await this.http.POST(params);
-      return response;
+      });
     } catch (error) {
       Promise.reject(error);
     }

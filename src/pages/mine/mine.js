@@ -14,5 +14,8 @@ Page({
         msg: '登录成功'
       });
     }
+  },
+  async bindUser(params) {
+    console.log(params);
   }
 });

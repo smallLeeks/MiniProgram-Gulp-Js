@@ -103,7 +103,18 @@ export default class login {
       }
       wx.hideLoading();
       return true;
-    } catch (err) {
+    } catch (error) {
+      return false;
+    }
+  }
+
+  // 获取用户信息
+  async getUserInfo() {
+    try {
+      const { code, message, data } = await apiRequset.getUserInfo();
+      if (Object.is(code, 200)) return Object.assign({}, this.userInfo, data);
+      this.showToast(message);
+    } catch (error) {
       return false;
     }
   }

@@ -17,6 +17,7 @@ class location {
           return data;
         } else {
           this.toast(message);
+          return false;
         }
       } catch (err) {
         this.toast(err);

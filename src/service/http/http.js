@@ -1,6 +1,8 @@
 import regeneratorRuntime from '../../vendor/runtime.js';
 import cache from '../../utils/cache.js';
+import message from '../../utils/message.js';
 const _cache = cache.getInstance();
+const _message = message.getInstance();
 
 export default class http {
   constructor(serverType = '') {
@@ -56,7 +58,11 @@ export default class http {
 
   // 获取带token的header信息
   getHeaderWidthToken() {
-    const header = this.getHeader();
+    const header = Object.assign({}, this.getHeader(), {
+      'token': wx.getStorage({
+        key: 'token'
+      })
+    });
     return header;
   }
 
@@ -91,7 +97,8 @@ export default class http {
     }
     const map = new Map([
       [401, () => { this.toast("无访问权限"); return Promise.reject(data); }],
-      [404, () => { this.toast(this.BAND_RESPONSE_TEXT); return Promise.reject(data); }]
+      [404, () => { this.toast(this.BAND_RESPONSE_TEXT); return Promise.reject(data); }],
+      [605, () => { _message.loginTips(); }]
     ]);
     map.get(Number(data.code));
     return Promise.resolve(data);

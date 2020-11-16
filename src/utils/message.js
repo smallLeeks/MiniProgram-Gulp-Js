@@ -1,7 +1,4 @@
 // 全局弹窗和提示信息
-import login from '../utils/login.js';
-const _login = login.getInstance();
-
 export default class message {
   /**
    * [instance  当前实例]
@@ -29,15 +26,15 @@ export default class message {
   loginTips() {
     if (this.showingLoginPrompt) return;
     const pages = getCurrentPages();
-    const route = pages[pages.length - 1].route; // 当前文件路径
+    const route = pages.length && pages[pages.length - 1].route; // 当前文件路径
     if (route && route.indexOf('/mine') != -1) return;
     this.showingLoginPrompt = true;
     wx.showModal({
       title: '提示',
-      content: '登录已失效， 是否重新登录？',
+      content: '登录已失效，是否重新登录？',
       success: (res) => {
         if (res.confirm) {
-          _login.loginIfNeed();
+          getApp().loginIfNeed();
         }
         this.showingLoginPrompt = false;
       },

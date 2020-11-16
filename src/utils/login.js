@@ -1,6 +1,8 @@
 import regeneratorRuntime from '../vendor/runtime.js';
 import request from '../service/http/request.js';
+import message from './message.js';
 const apiRequset = request.getInstance();
+const _message = message.getInstance();
 
 export default class login {
   /**
@@ -29,20 +31,11 @@ export default class login {
     this.userInfo = {};
   }
 
-  // 获取登录状态
-  isLogin() {
-    return this.userInfo.token ? true : false;
-  }
-
-  // 登录页：发布-订阅
-  loginIfNeed(complete) {
-    this.removeTmpLoginCb();
-    if (this.isLogin()) {
-      complete && complete(true);
-    } else {
-      complete && this.addTmpLoginCb(complete);
-      wx.switchTab({ url: '/pages/mine/mine' });
-    }
+  // 检查登录状态
+  checkToken() {
+    if (this.userInfo.token) return true;
+    _message.loginTips();
+    return false;
   }
 
   // 注册监听登录状态变化

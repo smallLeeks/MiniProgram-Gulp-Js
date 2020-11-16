@@ -13,6 +13,11 @@ Component({
       value: 'rgba(255, 255, 255, 1)',
       observer: '_showChange'
     },
+    backgroundImage: {
+      type: String,
+      value: 'linear-gradient(#fff, #fff)',
+      observer: '_showChange'
+    },
     backgroundColorTop: {
       type: String,
       value: 'rgba(255, 255, 255, 1)',
@@ -96,7 +101,8 @@ Component({
         `height:${navBarHeight + navBarExtendHeight}px`,
         `padding-top:${statusBarHeight}px`,
         `padding-right:${leftWidth}px`,
-        `padding-bottom:${navBarExtendHeight}px`
+        `padding-bottom:${navBarExtendHeight}px`,
+        `background-image: ${this.data.backgroundImage}`
       ].join(';');
       let navBarLeft = [];
       if ((back && !home) || (!back && home)) {

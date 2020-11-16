@@ -9,8 +9,9 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
+    "navigationBarTitleText": "菜小妮",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#fff"
   },
   "networkTimeout": {
     "request": 15000,
@@ -19,38 +20,38 @@
   "tabBar": {
     "position": "bottom",
     "borderStyle": "white",
-    "color": "#000000FF",
-    "selectedColor": "#FF1B5E",
+    "color": "#333333",
+    "selectedColor": "#04C444",
     "list": [
       {
         "pagePath": "pages/index/index",
         "text": "首页",
-        "iconPath": "",
-        "selectedIconPath": ""
+        "iconPath": "./assets/images/home.png",
+        "selectedIconPath": "./assets/images/homed.png"
       },
       {
         "pagePath": "pages/classify/classify",
         "text": "分类",
-        "iconPath": "",
-        "selectedIconPath": ""
+        "iconPath": "./assets/images/classify.png",
+        "selectedIconPath": "./assets/images/classified.png"
       },
       {
         "pagePath": "pages/order/order",
         "text": "订单",
-        "iconPath": "",
-        "selectedIconPath": ""
+        "iconPath": "./assets/images/order.png",
+        "selectedIconPath": "./assets/images/ordered.png"
       },
       {
         "pagePath": "pages/cart/cart",
         "text": "购物车",
-        "iconPath": "",
-        "selectedIconPath": ""
+        "iconPath": "./assets/images/cart.png",
+        "selectedIconPath": "./assets/images/carted.png"
       },
       {
         "pagePath": "pages/mine/mine",
         "text": "我的",
-        "iconPath": "",
-        "selectedIconPath": ""
+        "iconPath": "./assets/images/mine.png",
+        "selectedIconPath": "./assets/images/mined.png"
       }
     ]
   },

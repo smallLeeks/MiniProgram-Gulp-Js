@@ -57,8 +57,20 @@ export default class request {
   // 获取用户信息
   async getUserInfo(data = {}) {
     try {
-      return await this.http.POST({
+      return await this.http.POSTWITHTOKEN({
         url: `${SERVICE.BASE_URL}/api/user/get_userinfo`,
+        data
+      });
+    } catch (error) {
+      Promise.reject(error);
+    }
+  }
+
+  // 更新个人资料
+  async updateUserInfo(data = {}) {
+    try {
+      return await this.http.POSTWITHTOKEN({
+        url: `${SERVICE.BASE_URL}/api/user/update_user_info`,
         data
       });
     } catch (error) {
@@ -69,8 +81,44 @@ export default class request {
   // 微信定位
   async location(data = {}) {
     try {
-      return await this.http.POST({
+      return await this.http.POSTWITHTOKEN({
         url: `${SERVICE.BASE_URL}/api/home/index`,
+        data
+      });
+    } catch (error) {
+      Promise.reject(error);
+    }
+  }
+
+  // 特价菜列表
+  async specialList(data = {}) {
+    try {
+      return await this.http.POSTWITHTOKEN({
+        url: `${SERVICE.BASE_URL}/api/product/market_discount_list`,
+        data
+      });
+    } catch (error) {
+      Promise.reject(error);
+    }
+  }
+
+  // 获取一级分类
+  async firstCategory(data = {}) {
+    try {
+      return await this.http.POSTWITHTOKEN({
+        url: `${SERVICE.BASE_URL}/api/product/first_category`,
+        data
+      });
+    } catch (error) {
+      Promise.reject(error);
+    }
+  }
+
+  // 搜索菜市场
+  async searchMarket(data = {}) {
+    try {
+      return await this.http.POSTWITHTOKEN({
+        url: `${SERVICE.BASE_URL}/api/market/search`,
         data
       });
     } catch (error) {

@@ -105,7 +105,21 @@ export default class login {
   async getUserInfo() {
     try {
       const { code, message, data } = await apiRequset.getUserInfo();
-      if (Object.is(code, 200)) return Object.assign({}, this.userInfo, data);
+      if (Object.is(code, 200)) {
+        this.userInfo = Object.assign(this.userInfo, data);
+        return true;
+      }
+      this.showToast(message);
+    } catch (error) {
+      return false;
+    }
+  }
+
+  // 更新用户信息
+  async updateUserInfo(params = {}) {
+    try {
+      const { code, message } = await apiRequset.updateUserInfo(params);
+      if (Object.is(code, 200)) await this.getUserInfo();
       this.showToast(message);
     } catch (error) {
       return false;

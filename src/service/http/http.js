@@ -35,15 +35,15 @@ export default class http {
   }
 
   // GET带token
-  GETWITHTOKEN(params = {}) {
-    params['header'] = this.getHeaderWidthToken();
+  async GETWITHTOKEN(params = {}) {
+    params['header'] = await this.getHeaderWidthToken();
     params['method'] = 'GET';
     return this.request(params);
   }
 
   // POST带token
-  POSTWITHTOKEN(params = {}) {
-    params['header'] = this.getHeaderWidthToken();
+  async POSTWITHTOKEN(params = {}) {
+    params['header'] = await this.getHeaderWidthToken();
     params['method'] = 'POST';
     return this.request(params);
   }
@@ -57,11 +57,10 @@ export default class http {
   }
 
   // 获取带token的header信息
-  getHeaderWidthToken() {
+  async getHeaderWidthToken() {
+    const { data } = await wx.getStorage({ key: 'token' });
     const header = Object.assign({}, this.getHeader(), {
-      'token': wx.getStorage({
-        key: 'token'
-      })
+      'token': data
     });
     return header;
   }

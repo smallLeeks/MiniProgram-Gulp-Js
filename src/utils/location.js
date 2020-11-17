@@ -4,24 +4,28 @@ const apiRequest = request.getInstance();
 
 class location {
   getMarketInfo() {
-    this.getSetting(async res => {
-      const { latitude, longitude } = res;
-      const params = {
-        coordinate_x: latitude,
-        coordinate_y: longitude
-      };
-      console.log(params);
-      try {
-        const { code, message, data } = await apiRequest.location(params);
-        if (Object.is(code, 200)) {
-          return data;
-        } else {
-          this.toast(message);
-          return false;
+    return new Promise((resolve, reject) => {
+      this.getSetting(async res => {
+        const { latitude, longitude } = res;
+        const params = {
+          coordinate_x: latitude,
+          coordinate_y: longitude
+        };
+        console.log(params);
+        resolve(true);
+        try {
+          const { code, message, data } = await apiRequest.location(params);
+          if (Object.is(code, 200)) {
+            resolve(data);
+          } else {
+            this.toast(message);
+            resolve(false);
+          }
+        } catch (err) {
+          this.toast(err);
+          reject(err);
         }
-      } catch (err) {
-        this.toast(err);
-      }
+      });
     });
   }
 

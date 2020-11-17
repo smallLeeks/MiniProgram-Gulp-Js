@@ -1,6 +1,6 @@
 const config = {
   META: 'devalopment',
-  BASE_URL: 'https://api.apiopen.top/'
+  BASE_URL: 'http://139.224.208.217'
 };
 
 module.exports = Object.freeze(

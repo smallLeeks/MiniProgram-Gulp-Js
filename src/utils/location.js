@@ -11,8 +11,6 @@ class location {
           coordinate_x: latitude,
           coordinate_y: longitude
         };
-        console.log(params);
-        resolve(true);
         try {
           const { code, message, data } = await apiRequest.location(params);
           if (Object.is(code, 200)) {

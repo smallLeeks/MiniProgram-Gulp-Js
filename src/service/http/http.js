@@ -58,9 +58,8 @@ export default class http {
 
   // 获取带token的header信息
   async getHeaderWidthToken() {
-    const { data } = await wx.getStorage({ key: 'token' });
     const header = Object.assign({}, this.getHeader(), {
-      'token': data
+      'token': wx.getStorageSync('token')
     });
     return header;
   }

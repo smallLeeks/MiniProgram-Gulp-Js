@@ -1,7 +1,7 @@
 import regeneratorRuntime from '../vendor/runtime.js';
 import request from '../service/http/request.js';
 import message from './message.js';
-const apiRequset = request.getInstance();
+const apiRequest = request.getInstance();
 const _message = message.getInstance();
 
 export default class login {
@@ -31,9 +31,14 @@ export default class login {
     this.userInfo = {};
   }
 
+  hasToken() {
+    if (wx.getStorageSync('token')) return true;
+    return false;
+  }
+
   // 检查登录状态
   checkToken() {
-    if (this.userInfo.token) return true;
+    if (wx.getStorageSync('token')) return true;
     _message.loginTips();
     return false;
   }
@@ -87,15 +92,17 @@ export default class login {
       const { detail: { encryptedData, iv } } = params;
       wx.showLoading({ title: "登录中" });
       const loginParams = Object.assign({}, { code: wxCode }, { encryptedData, iv });
-      const { code, message, data } = await apiRequset.login(loginParams);
+      const { code, message, data } = await apiRequest.login(loginParams);
       if (Object.is(code, 200)) {
         this.userInfo = data;
         this.saveTokenInfo();
+        wx.hideLoading();
+        return true;
       } else {
         this.showToast(message);
+        wx.hideLoading();
+        return false;
       }
-      wx.hideLoading();
-      return true;
     } catch (error) {
       return false;
     }
@@ -104,7 +111,7 @@ export default class login {
   // 获取用户信息
   async getUserInfo() {
     try {
-      const { code, message, data } = await apiRequset.getUserInfo();
+      const { code, message, data } = await apiRequest.getUserInfo();
       if (Object.is(code, 200)) {
         this.userInfo = Object.assign(this.userInfo, data);
         return true;
@@ -118,7 +125,7 @@ export default class login {
   // 更新用户信息
   async updateUserInfo(params = {}) {
     try {
-      const { code, message } = await apiRequset.updateUserInfo(params);
+      const { code, message } = await apiRequest.updateUserInfo(params);
       if (Object.is(code, 200)) await this.getUserInfo();
       this.showToast(message);
     } catch (error) {

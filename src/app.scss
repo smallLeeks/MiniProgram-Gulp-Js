@@ -24,33 +24,33 @@
 			}
 		}
   }
-  @-moz-keyframes #{$name} {
-    @each $i, $val in $obj {
-			#{$i} {
-				@each $val1, $val2 in $val {
-					#{$val1}: $val2;
-				}
-			}
-		}
-	}
-	@-webkit-keyframes #{$name} {
-    @each $i, $val in $obj {
-			#{$i} {
-				@each $val1, $val2 in $val {
-					#{$val1}: $val2;
-				}
-			}
-		}
-	}
-	@-ms-keyframes #{$name} {
-    @each $i, $val in $obj {
-			#{$i} {
-				@each $val1, $val2 in $val {
-					#{$val1}: $val2;
-				}
-			}
-		}
-	}
+  // @-moz-keyframes #{$name} {
+  //   @each $i, $val in $obj {
+	// 		#{$i} {
+	// 			@each $val1, $val2 in $val {
+	// 				#{$val1}: $val2;
+	// 			}
+	// 		}
+	// 	}
+	// }
+	// @-webkit-keyframes #{$name} {
+  //   @each $i, $val in $obj {
+	// 		#{$i} {
+	// 			@each $val1, $val2 in $val {
+	// 				#{$val1}: $val2;
+	// 			}
+	// 		}
+	// 	}
+	// }
+	// @-ms-keyframes #{$name} {
+  //   @each $i, $val in $obj {
+	// 		#{$i} {
+	// 			@each $val1, $val2 in $val {
+	// 				#{$val1}: $val2;
+	// 			}
+	// 		}
+	// 	}
+	// }
 }
 .skeleton_loading {
   $an1:(left: 0);

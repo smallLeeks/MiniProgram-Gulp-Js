@@ -6,7 +6,8 @@
   width: 0;
   height: 0;
   color: transparent;
-}// 骨架屏
+}
+// 骨架屏
 @mixin animation($val) {
   animation: $val;
   -webkit-animation: $val;

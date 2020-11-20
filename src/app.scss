@@ -8,11 +8,41 @@
   color: transparent;
 }// 骨架屏
 @mixin animation($val) {
-	animation: $val;
+  animation: $val;
+  -webkit-animation: $val;
+	-moz-animation: $val;
+	-ms-animation: $val;
 }
 @mixin skeleton-ani($name, $obj) {
   @keyframes #{$name} {
 		@each $i, $val in $obj {
+			#{$i} {
+				@each $val1, $val2 in $val {
+					#{$val1}: $val2;
+				}
+			}
+		}
+  }
+  @-moz-keyframes #{$name} {
+    @each $i, $val in $obj {
+			#{$i} {
+				@each $val1, $val2 in $val {
+					#{$val1}: $val2;
+				}
+			}
+		}
+	}
+	@-webkit-keyframes #{$name} {
+    @each $i, $val in $obj {
+			#{$i} {
+				@each $val1, $val2 in $val {
+					#{$val1}: $val2;
+				}
+			}
+		}
+	}
+	@-ms-keyframes #{$name} {
+    @each $i, $val in $obj {
 			#{$i} {
 				@each $val1, $val2 in $val {
 					#{$val1}: $val2;

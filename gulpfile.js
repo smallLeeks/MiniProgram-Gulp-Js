@@ -21,22 +21,32 @@ const wxml = () => {
 gulp.task(wxml);
 
 // 编译less、sass、wxss文件
-const lessOrSassFiles = [
+const sassFiles = [
   `${srcPath}/*.scss`,
+  `${srcPath}/*.wxss`
+];
+const compileSass = () => {
+  return gulp.src(sassFiles, { since: gulp.lastRun(compileSass) })
+    .pipe(sass().on('error', sass.logError))
+    .pipe(rename({ extname: '.wxss' }))
+    .pipe(gulp.dest(buildPath));
+};
+gulp.task(compileSass);
+
+const lessFiles = [
   `${srcPath}/*.less`,
   `${srcPath}/*.wxss`
 ];
 const isLess = (file) => {
   return Object.is(file.extname, '.less');
 };
-const wxss = () => {
-  return gulp.src(lessOrSassFiles, { since: gulp.lastRun(wxss) })
-    .pipe(sass().on('error', sass.logError))
+const compileLess = () => {
+  return gulp.src(lessFiles, { since: gulp.lastRun(compileLess) })
     .pipe(gulpif(isLess, less()))
     .pipe(rename({ extname: '.wxss' }))
     .pipe(gulp.dest(buildPath));
 };
-gulp.task(wxss);
+gulp.task(compileLess);
 
 // 编译js文件
 const jsFiles = [`${srcPath}/*.js`, `!./src/env/*.js`];
@@ -58,7 +68,7 @@ gulp.task(json);
 
 // 编译图片
 const imgFiles = [
-  `${srcPath}/*.{jpg, png, gif, ico}`
+  `${srcPath}/images/*.*`
 ];
 const img = () => {
   return gulp.src(imgFiles, { since: gulp.lastRun(img) })
@@ -89,7 +99,8 @@ gulp.task('clean', (done) => {
 // 监听文件
 gulp.task('watch', () => {
   gulp.watch(wxmlFiles, wxml);
-  gulp.watch([...lessOrSassFiles], wxss);
+  gulp.watch([...sassFiles], compileSass);
+  gulp.watch([...lessFiles], compileLess);
   gulp.watch(jsFiles, js);
   gulp.watch(jsonFiles, json);
   gulp.watch(imgFiles, img);
@@ -99,7 +110,7 @@ gulp.task('watch', () => {
 gulp.task('dev',
   gulp.series(
     'clean',
-    gulp.parallel('wxml', 'wxss', 'js', 'json', 'img', 'development'),
+    gulp.parallel('wxml', 'compileSass', 'compileLess', 'js', 'json', 'img', 'development'),
     'watch'
   )
 )
@@ -108,7 +119,7 @@ gulp.task('dev',
 gulp.task('build',
   gulp.series(
     'clean',
-    gulp.parallel('wxml', 'wxss', 'js', 'json', 'img', 'production'),
+    gulp.parallel('wxml', 'compileSass', 'compileLess', 'js', 'json', 'img', 'production'),
     'watch'
   )
 )

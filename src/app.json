@@ -36,16 +36,16 @@
         "selectedIconPath": "./assets/images/classified.png"
       },
       {
-        "pagePath": "pages/order/order",
-        "text": "订单",
-        "iconPath": "./assets/images/order.png",
-        "selectedIconPath": "./assets/images/ordered.png"
-      },
-      {
         "pagePath": "pages/cart/cart",
         "text": "购物车",
         "iconPath": "./assets/images/cart.png",
         "selectedIconPath": "./assets/images/carted.png"
+      },
+      {
+        "pagePath": "pages/order/order",
+        "text": "订单",
+        "iconPath": "./assets/images/order.png",
+        "selectedIconPath": "./assets/images/ordered.png"
       },
       {
         "pagePath": "pages/mine/mine",

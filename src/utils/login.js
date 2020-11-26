@@ -43,20 +43,6 @@ export default class login {
     return false;
   }
 
-  // 注册监听登录状态变化
-  onloginStatus(key, cb) {
-    if (key && cb) this.loginMap.set(key, cb);
-  }
-
-  // 取消监听登录状态变化
-  offLoginStatus(key) {
-    key && this.loginMap.delete(key);
-  }
-
-  notifyLoginStatus() {
-    [...this.loginMap.values()] && this.loginMap(true);
-  }
-
   // 调用loginIfNeed时设置的临时回调函数
   addTmpLoginCb(fn) {
     this.tmpLoginCb = fn;

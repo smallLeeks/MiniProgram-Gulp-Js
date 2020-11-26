@@ -89,40 +89,4 @@ export default class request {
       Promise.reject(error);
     }
   }
-
-  // 特价菜列表
-  async specialList(data = {}) {
-    try {
-      return await this.http.POSTWITHTOKEN({
-        url: `${SERVICE.BASE_URL}/api/product/market_discount_list`,
-        data
-      });
-    } catch (error) {
-      Promise.reject(error);
-    }
-  }
-
-  // 获取一级分类
-  async firstCategory(data = {}) {
-    try {
-      return await this.http.POSTWITHTOKEN({
-        url: `${SERVICE.BASE_URL}/api/product/first_category`,
-        data
-      });
-    } catch (error) {
-      Promise.reject(error);
-    }
-  }
-
-  // 搜索菜市场
-  async searchMarket(data = {}) {
-    try {
-      return await this.http.POSTWITHTOKEN({
-        url: `${SERVICE.BASE_URL}/api/market/search`,
-        data
-      });
-    } catch (error) {
-      Promise.reject(error);
-    }
-  }
 }

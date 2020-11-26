@@ -39,6 +39,5 @@ export default class model {
         this.offStatus(key);
       }
     }
-
   }
 }

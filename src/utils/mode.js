@@ -23,6 +23,9 @@ export default class model {
 
   /**
    * 发布订阅者
+   * @method onStatus
+   * @method offStatus
+   * @method notifyStatus
    */
   onStatus(key, callback) {
     this.subscribeMap.set(key, callback);

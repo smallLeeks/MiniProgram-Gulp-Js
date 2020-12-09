@@ -24,19 +24,24 @@ export default class login {
   }
 
   constructor() {
-    // 登录监听函数注册
-    this.loginMap = new Map();
     this.tmpLoginCb = '';
     // 用户信息
     this.userInfo = {};
   }
 
+  /**
+   * 是否登录
+   * @return Boolean
+   */
   hasToken() {
     if (wx.getStorageSync('token')) return true;
     return false;
   }
 
-  // 检查登录状态
+  /**
+   * 是否登录（弹窗）
+   * @return Boolean
+   */
   checkToken() {
     if (wx.getStorageSync('token')) return true;
     _message.loginTips();
@@ -61,7 +66,10 @@ export default class login {
     }
   }
 
-  // 检查wx-code是否过期
+  /**
+   * 检查wx-code是否过期
+   * @reuturn Boolean
+   */
   async checkCode() {
     try {
       const { errMsg } = await wx.checkSession();
@@ -71,7 +79,11 @@ export default class login {
     }
   }
 
-  // 获取token
+  /**
+   * 获取用户token
+   * @param {Object} params 
+   * @return Boolean
+   */
   async getToken(params) {
     try {
       const { code: wxCode } = await this.wxLogin();
@@ -94,7 +106,10 @@ export default class login {
     }
   }
 
-  // 获取用户信息
+  /**
+   * 获取用户信息
+   * @return Boolean
+   */
   async getUserInfo() {
     try {
       const { code, message, data } = await apiRequest.getUserInfo();
@@ -108,7 +123,11 @@ export default class login {
     }
   }
 
-  // 更新用户信息
+  /**
+   * 更新用户信息
+   * @param {Object} params 
+   * @reuturn Boolean
+   */
   async updateUserInfo(params = {}) {
     try {
       const { code, message } = await apiRequest.updateUserInfo(params);

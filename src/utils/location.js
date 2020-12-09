@@ -3,7 +3,7 @@ import request from '../service/http/request.js';
 const apiRequest = request.getInstance();
 
 class location {
-  getMarketInfo() {
+  getLocation() {
     return new Promise((resolve, reject) => {
       this.getSetting(async res => {
         const { latitude, longitude } = res;

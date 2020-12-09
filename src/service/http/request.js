@@ -89,4 +89,16 @@ export default class request {
       Promise.reject(error);
     }
   }
+
+  // 微信支付下单
+  async wechatPay(data = {}) {
+    try {
+      return await this.http.POSTWITHTOKEN({
+        url: `${SERVICE.BASE_URL}/api/wechat/createOrder`,
+        data,
+      });
+    } catch (error) {
+      Promise.reject(error);
+    }
+  }
 }

@@ -93,12 +93,23 @@ export default class http {
       this.toast(this.BAND_RESPONSE_TEXT);
       return Promise.reject(res);
     }
-    const map = new Map([
-      [401, () => { this.toast("无访问权限"); return Promise.reject(data); }],
-      [404, () => { this.toast(this.BAND_RESPONSE_TEXT); return Promise.reject(data); }],
-      [605, () => { _message.loginTips(); }]
-    ]);
-    map.get(Number(data.code));
+    switch (Number(data.code)) {
+    case 401:
+      this.toast("无访问权限");
+      break;
+    case 404:
+      this.toast(this.BAND_RESPONSE_TEXT);
+      break;
+    case 604:
+      wx.removeStorage({ key: 'token' });
+      _message.loginTips();
+      break;
+    case 605:
+      _message.loginTips();
+      break;
+    default:
+      break;
+    }
     return Promise.resolve(data);
   }
 

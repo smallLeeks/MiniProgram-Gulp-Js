@@ -10,9 +10,6 @@ Page({
     msg: '获取定位'
   },
   onLoad() {
-    location.getMarketInfo();
-  },
-  test() {
-    location.getMarketInfo();
+    location.getCoordinate();
   }
 });

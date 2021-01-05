@@ -1,0 +1,24 @@
+
+.container {
+  
+}
+.upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.loading {
+  -webkit-animation: round 0.8s linear infinite;
+  animation: round 0.8s linear infinite;
+}
+@keyframes round {
+  to {
+    transform: rotate(1turn);
+  }
+}
+.delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

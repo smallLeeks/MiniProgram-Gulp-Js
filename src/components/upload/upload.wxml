@@ -1,1 +1,8 @@
-<view class="upload" bindtap="bindUpload">图片上传</view>
+<view class="container">
+  <view class="upload" style="width: {{width}}rpx; height: {{height}}rpx" bindtap="{{status === 0 ? 'bindUpload' : ''}}">
+    <image src="../../assets/images/icon-upload.png" style="width: {{width}}rpx; height: {{height}}rpx" wx:if="{{status === 0}}"></image>
+    <image src="../../assets/images/loading.png" class="loading" style="width: {{width / 2}}rpx; height: {{height / 2}}rpx" wx:if="{{status === 1}}" />
+    <image src="{{url + src}}" style="width: {{width}}rpx; height: {{height}}rpx" wx:if="{{status === 2}}"></image>
+    <image src="../../assets/images/delete.png" class="delete" style="width: {{width / 5}}rpx; height: {{height / 5}}rpx" bindtap="bindDelete" data-src="{{src}}" wx:if="{{status === 2}}" />
+  </view>
+</view>

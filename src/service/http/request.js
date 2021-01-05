@@ -101,4 +101,16 @@ export default class request {
       Promise.reject(error);
     }
   }
+
+  // 获取七牛token
+  async qiNiuToken(data = {}) {
+    try {
+      return await this.http.POST({
+        url: `https://kftest.htt.cn/api/qiniu/get_token`,
+        data,
+      });
+    } catch (error) {
+      Promise.reject(error);
+    }
+  }
 }

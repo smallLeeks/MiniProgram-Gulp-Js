@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "navBar": "/components/navBar/navBar"
+    "navBar": "/components/navBar/navBar",
+    "upload": "/components/upload/upload"
   },
   "navigationStyle": "custom"
 }

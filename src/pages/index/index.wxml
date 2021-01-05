@@ -1,4 +1,5 @@
 <!-- index.wxml -->
 <view class="container">
-  <navBar background='green' backgroundColorTop='rgba(0, 0, 0, 0)' back="{{false}}" home="{{false}}"></navBar>
+  <navBar background='green' backgroundColorTop='rgba(0, 0, 0, 0)' back="{{false}}" home="{{false}}" />
+  <upload />
 </view>

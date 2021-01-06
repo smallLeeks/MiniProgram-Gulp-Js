@@ -1,12 +1,16 @@
-
 .container {
-  
+  display: flex;
+  align-items: center;
 }
 .upload {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  margin-right: 20rpx;
+}
+.upload:last-child {
+  margin-right: 0;
 }
 .loading {
   -webkit-animation: round 0.8s linear infinite;

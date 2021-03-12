@@ -15,7 +15,7 @@ Page({
       });
     }
   },
-  async bindUser(params) {
-    console.log(params);
+  async bindUser() {
+    _login.updateUserInfo(() => {});
   }
 });

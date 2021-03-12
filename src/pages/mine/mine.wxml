@@ -1,5 +1,5 @@
 <!-- index.wxml -->
 <view class="container">
   <button open-type='getPhoneNumber' bindgetphonenumber="bindLogin">登录</button>
-  <button open-type='getUserInfo' bindgetuserinfo="bindUser">用户信息</button>
+  <view bindtap="bindUser">用户信息</view>
 </view>

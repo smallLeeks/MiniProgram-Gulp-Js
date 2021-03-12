@@ -66,6 +66,17 @@ export default class login {
     }
   }
 
+  // 微信获取用户信息
+  wxUserProfile() {
+    return new Promise((resolve, reject) => {
+      wx.getUserProfile({
+        desc: '获取用户信息',
+        success: res => resolve(res),
+        faile: err => reject(err)
+      });
+    });
+  }
+
   /**
    * 检查wx-code是否过期
    * @reuturn Boolean
@@ -125,16 +136,22 @@ export default class login {
 
   /**
    * 更新用户信息
-   * @param {Object} params 
-   * @reuturn Boolean
+   * @param {function} cb
    */
-  async updateUserInfo(params = {}) {
+  async updateUserInfo(cb) {
     try {
-      const { code, message } = await apiRequest.updateUserInfo(params);
-      if (Object.is(code, 200)) await this.getUserInfo();
-      this.showToast(message);
+      const { errMsg, userInfo } = await this.wxUserProfile();
+      if (Object.is(errMsg, "getUserProfile:ok")) {
+        const { code, message } = await apiRequest.updateUserInfo({
+          nick_name: userInfo.nickName,
+          avatar_url: userInfo.avatarUrl
+        });
+        if (Object.is(code, 200)) await this.getUserInfo();
+        this.showToast(message);
+        cb && cb();
+      }
     } catch (error) {
-      return false;
+      this.showToast(message);
     }
   }
 
